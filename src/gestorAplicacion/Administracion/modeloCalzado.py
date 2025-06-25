@@ -1,9 +1,15 @@
-
 class ModeloCalzado:
-    def __init__(self, codigo: int, nombre: str, marca: str = ""):
-        self._codigo = codigo          # Código del modelo
-        self._nombre = nombre          
-        self._marca = marca           
+    _contador_modelos = 1  # contador para códigos automáticos
+
+    def __init__(self, codigo: int = None, nombre: str = "", marca: str = ""):
+        # Asignar código automáticamente si no se provee
+        if codigo is None:
+            self._codigo = ModeloCalzado._contador_modelos
+            ModeloCalzado._contador_modelos += 1
+        else:
+            self._codigo = codigo
+        self._nombre = nombre
+        self._marca = marca
 
     def get_codigo(self):
         return self._codigo
