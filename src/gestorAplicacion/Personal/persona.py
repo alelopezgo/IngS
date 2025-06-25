@@ -1,8 +1,28 @@
 from abc import ABC
 
 
-class persona(ABC):
-    def __init__(self, Cedula: int, Nombre: str, Rol: str):
-        self.Cedula = Cedula
-        self.Nombre = Nombre
-        self.Rol = Rol
+class Persona(ABC):
+    def __init__(self, cedula: int, nombre: str, rol: str):
+        self._nombre = nombre
+        self._cedula = cedula
+        self._rol = rol
+
+    def get_cedula(self):
+        return self._cedula
+
+    def set_cedula(self, cedula: int):
+        self._cedula = cedula
+
+
+    def get_nombre(self):
+        return self._nombre
+
+    def set_nombre(self, nombre: str):
+        self._nombre = nombre
+
+    def get_rol(self):
+        return self._rol
+
+    def set_rol(self, rol: str):
+        self._rol = rol
+       
