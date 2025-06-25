@@ -1,8 +1,8 @@
-from Personal.cliente import Cliente
-from Personal.cajero import Cajero
-from Administracion.calzado import Calzado
+from gestorAplicacion.Personal.cliente import Cliente
+from gestorAplicacion.Personal.cajero import Cajero
+from gestorAplicacion.Administracion.calzado import Calzado
 import datetime
-import List
+from typing import List
 class Compra:
     def __init__(self,codigo: int,cliente: Cliente,cajero: Cajero,productos: list,medio_pago: str,fecha: datetime):  
         self._codigo = codigo

@@ -1,7 +1,7 @@
 from gestorAplicacion.Personal.cliente import Cliente
 from gestorAplicacion.Personal.cajero import Cajero
 from gestorAplicacion.Personal.asesor import Asesor
-from Administracion.compra import Compra
+from gestorAplicacion.Administracion.compra import Compra
 from typing import List
 
 class Sede:

@@ -1,4 +1,4 @@
-import modeloCalzado
+from gestorAplicacion.Administracion.modeloCalzado import ModeloCalzado
 class Calzado:
     def __init__(self, modelo: ModeloCalzado, talla: int, color: str, precio: int):
         self._modelo = modelo

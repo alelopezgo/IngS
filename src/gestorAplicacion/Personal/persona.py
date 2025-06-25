@@ -34,3 +34,4 @@ class Persona(ABC):
     @classmethod
     def validar_cedula(cls, cedula: str) -> bool:
         return cedula.isdigit() and 6 <=len(cedula) <=10
+    
