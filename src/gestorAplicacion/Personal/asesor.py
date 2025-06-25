@@ -1,4 +1,4 @@
-from persona import Persona
+from gestorAplicacion.Personal.persona import Persona
 
 class Asesor(Persona):
     def __init__(self, cedula: int, nombre: str, rol: str = "Asesor", id: int = 0, calificacion: float = 0.0):

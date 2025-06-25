@@ -1,6 +1,6 @@
-import persona
+from gestorAplicacion.Personal.persona import Persona
 
-class Cliente(persona):
+class Cliente(Persona):
     def __init__(self, cedula: int, nombre: str, rol: str, telefono: int, direccion: str, correo: str ):
         super().__init__(cedula, nombre, rol = "Cliente")
         self._telefono = telefono
@@ -26,4 +26,4 @@ class Cliente(persona):
     
     def set_correo(self, correo: str):
         self._correo = correo
-       
+

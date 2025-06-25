@@ -1,5 +1,5 @@
 from abc import ABC
-
+import re
 
 class Persona(ABC):
     def __init__(self, cedula: int, nombre: str, rol: str):
@@ -24,3 +24,13 @@ class Persona(ABC):
 
     def set_rol(self, rol: str):
         self._rol = rol
+
+
+    @classmethod
+    def validar_nombre(cls, nombre: str) -> bool:
+        patron = r'^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$'
+        return bool(re.fullmatch(patron, nombre.strip())) and nombre.strip() != ""
+    
+    @classmethod
+    def validar_cedula(cls, cedula: str) -> bool:
+        return cedula.isdigit() and 6 <=len(cedula) <=10
