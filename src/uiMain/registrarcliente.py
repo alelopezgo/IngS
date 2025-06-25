@@ -14,6 +14,9 @@ def registrarCliente(sede: Sede ):
 
     nombre = None
     cedula = None
+    telefono = None
+    correo = None
+    direccion = None
 
     while True:
          cedula = input("Cedula: ")
