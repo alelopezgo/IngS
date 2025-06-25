@@ -13,7 +13,6 @@ class Persona(ABC):
     def set_cedula(self, cedula: int):
         self._cedula = cedula
 
-
     def get_nombre(self):
         return self._nombre
 
@@ -25,4 +24,3 @@ class Persona(ABC):
 
     def set_rol(self, rol: str):
         self._rol = rol
-       
