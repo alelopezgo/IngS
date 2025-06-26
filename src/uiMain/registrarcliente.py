@@ -6,79 +6,108 @@ from gestorAplicacion.Personal.persona import Persona
 from gestorAplicacion.Personal.cliente import Cliente
 from gestorAplicacion.Administracion.sede import Sede
 
+# FUNCIONES REUTILIZABLES
 
-def registrarCliente(sede: Sede ):
-    SpringStep = sede
-
-    print("\n=====  REGISTRO CLIENTE ====\n")
-    nombre = None
-    cedula = None
-    celular = None
-    correo = None
-    direccion = None
-
+def pedir_cedula():
     while True:
-        cedula = input("Cedula: ").strip()
+        cedula = input("Cédula: ").strip()
+        if not Persona.validar_cedula(cedula):
+            print("Cédula inválida: debe contener solo dígitos y tener entre 6 y 10 caracteres.\n")
+        else:
+            return int(cedula)
 
-        # VALIDAR FORMATO CÉDULA      
-        if  not Persona.validar_cedula(cedula):
-            print("CC inválida: debe contener solo dígitos y tener entre 6 y 10 caracteres.\n")
-            continue
-         
-        else: 
-            cedula = int(cedula)
+def pedir_nombre():
+    while True:
+        nombre = input("Nombre: ").strip()
+        if not Persona.validar_nombre(nombre):
+            print("nombre inválido: no se permiten números ni caracteres especiales.\n")
+        else:
+            return nombre
+
+def pedir_celular():
+    while True:
+        celular = input("Celular: ").strip()
+        if not Cliente.validar_celular(celular):
+            print("número celular inválido. Debe tener 10 dígitos y comenzar con 3.\n")
+        else:
+            return int(celular)
+
+def pedir_correo():
+    while True:
+        correo = input("Correo (opcional): ").strip()
+        if not Cliente.validar_correo(correo):
+            print("Correo inválido: solo se aceptan direcciones Gmail, Hotmail, Outlook, Yahoo.es o .edu.co\n")
+        else:
+            return correo
+
+def pedir_direccion():
+    while True:
+        direccion = input("Dirección (opcional): ").strip()
+        if not Cliente.validar_direccion(direccion):
+            print("Dirección inválida: solo se permiten letras, números, espacios, puntos (.), comas (,), guiones (-) y numeral (#).\n")
+        else:
+            return direccion
+
+
+
+def registrarCliente(sede: Sede):
+    print("\n=====  REGISTRO CLIENTE ====\n")
+
+    datos = {
+        "cedula": pedir_cedula()
+    }
+
+    if sede.verificar_cedula_existente(datos["cedula"]):
+        print("No se puede continuar: el cliente ya se encuentra registrado.\n")
+        return
+
+    # Resto de datos
+    datos["nombre"] = pedir_nombre()
+    datos["celular"] = pedir_celular()
+    datos["correo"] = pedir_correo()
+    datos["direccion"] = pedir_direccion()
+
+    # Mostrar resumen
+    print("\nResumen de datos ingresados:")
+    for campo, valor in datos.items():
+        print(f" - {campo.capitalize()}: {valor if valor else '(vacío)'}")
+
+    # Opción de edición
+    while True:
+        opcion = input("\n¿Desea editar algún dato? Ingrese:\n1 - Cédula\n2 - Nombre\n3 - Celular\n4 - Correo\n5 - Dirección\n0 - Continuar\nOpción: ").strip()
+        if opcion == "1":
+            datos["cedula"] = pedir_cedula()
+        elif opcion == "2":
+            datos["nombre"] = pedir_nombre()
+        elif opcion == "3":
+            datos["celular"] = pedir_celular()
+        elif opcion == "4":
+            datos["correo"] = pedir_correo()
+        elif opcion == "5":
+            datos["direccion"] = pedir_direccion()
+        elif opcion == "0":
             break
-         
-    # VALIDAR SI EL CLIENTE SE ENCUENTRA REGISTRADO
-    if SpringStep.verificar_cedula_existente(cedula):
-        print("No se puede continuar con el registro, debido a que el cliente ya se encuentra en el sistema.\n")
+        else:
+            print("Opción inválida.")
 
-    else:
-        while True:
-            nombre = input("Nombre: ")
+    # Crear cliente
+    nuevo_cliente = Cliente(
+        datos["cedula"], datos["nombre"],
+        datos["celular"], datos["direccion"], datos["correo"]
+    )
 
-            # VALIDAR FORMATO NOMBRE
-            if not Persona.validar_nombre(nombre):
-                print("nombre inválido: no se permiten números ni caracteres especiales, intente de nuevo.\n")
-                continue
+    # Mostrar datos ingresados
+    print("\nResumen de datos ingresados:")
+    for campo, valor in datos.items():
+        print(f" - {campo.capitalize()}: {valor if valor else '(vacío)'}")
 
-            else: break
+    sede.registrarCliente(nuevo_cliente)
+    print("\nCliente registrado exitosamente.\n")
 
-        while True:
-            celular = input("Celular: ").strip()
 
-            # VALIDAR FORMATO DE CELULAR
-            if not Cliente.validar_celular(celular):
-                print("Numero celular inválido, intente de nuevo.\n")
+# =========== PRUEBAS ===============
 
-            else: 
-                celular = int(celular)
-                break
-
-        while True:
-            correo = input("Correo (opcional): ")
-
-            #VALIDAR FORMATO DE CORREO
-            if not Cliente.validar_correo(correo):
-                print("Correo inválido: solo se aceptan direcciones de Gmail, Hotmail, Outlook, Yahoo.es o universidades .edu.co\n")
-
-            else: break
-
-        while True:
-            direccion = input("Dirección (opcional): ")
-
-            #VALIDAR FORMATO
-            if not Cliente.validar_direccion(direccion):
-                print("Dirección inválida: contiene caracteres no permitidos, intente de nuevo.")
-
-            else: break
-
-        # CREAR NUEVO CLIENTE
-
-        nuevoCliente = Cliente(cedula, nombre, celular, direccion, correo)
-        SpringStep.registrarCliente(nuevoCliente)
-
-# PRUEBAS
 SpringStep = Sede()
-#registrarCliente(SpringStep)
-#registrarCliente(SpringStep)
+
+#while True:
+#    registrarCliente(SpringStep)

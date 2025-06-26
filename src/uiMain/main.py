@@ -1,4 +1,4 @@
-from registrarcliente import registrarCliente
+from registrarCliente import registrarCliente
 from gestorAplicacion.Administracion.sede import Sede
 from registrarcompra import registrarCompra
 from registrardevolucion import registrar_devolucion
@@ -14,7 +14,7 @@ SpringStep = Sede()
 
 
 # Crear cliente y cajero
-cliente = Cliente(nombre="Alejandro Lopez",cedula=1001506186, rol="Cliente", telefono=3207078279, direccion="", correo="", compras_previas=[])
+cliente = Cliente(nombre="Alejandro Lopez",cedula=1001506186, telefono=3207078279, direccion="", correo="", compras_previas=[])
 cajero = Cajero(cedula=123456789, nombre="Alejandro Lopez", rol="Cajero", id=1)
 
 # Registrar cliente en la sede

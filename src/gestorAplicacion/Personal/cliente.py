@@ -4,14 +4,14 @@ from typing import List
 import re
 
 class Cliente(Persona):
-    def __init__(self, cedula: int, nombre: str, rol: str, telefono: int, direccion: str, correo: str, compras_previas):
-        super().__init__(cedula, nombre, rol="Cliente")
+    def __init__(self, cedula: int, nombre: str, telefono: int, direccion: str, correo: str, compras_previas = None):
+        super().__init__(cedula, nombre, "Cliente")
         self._telefono = telefono
         self._direccion = direccion
         self._correo = correo
         self._compras_previas = compras_previas
-
     
+
     @classmethod
     def validar_celular(cls, celular: str) -> bool:
         return celular.isdigit() and len(celular) == 10 and celular.startswith("3")
