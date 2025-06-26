@@ -4,8 +4,8 @@ from typing import List
 import re
 
 class Cliente(Persona):
-    def __init__(self, cedula: int, nombre: str, telefono: int, direccion: str, correo: str, compras_previas):
-        super().__init__(cedula, nombre, "Cliente")
+    def __init__(self, cedula: int, nombre: str, rol: str, telefono: int, direccion: str, correo: str, compras_previas):
+        super().__init__(cedula, nombre, rol="Cliente")
         self._telefono = telefono
         self._direccion = direccion
         self._correo = correo
