@@ -2,6 +2,9 @@ from gestorAplicacion.Administracion.Devolucion import Devolucion
 from gestorAplicacion.Administracion.compra import Compra
 from gestorAplicacion.Administracion.calzado import Calzado
 from gestorAplicacion.Administracion.sede import Sede
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 SpringStep = Sede()
 
