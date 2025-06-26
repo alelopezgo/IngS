@@ -18,7 +18,7 @@ class Sede:
 
     def registrarCliente(self, cliente: Cliente):
         self._clientes.append(cliente)
-        self._cedulasClientes.add(cliente.getcedula())
+        self._cedulasClientes.add(cliente.get_cedula())
 
     def verificar_cedula_existente(self, cedula: int):
         return cedula in self.setCedulas()

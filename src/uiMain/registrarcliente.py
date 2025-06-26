@@ -6,10 +6,9 @@ from gestorAplicacion.Personal.persona import Persona
 from gestorAplicacion.Personal.cliente import Cliente
 from gestorAplicacion.Administracion.sede import Sede
 
-SpringStep = Sede()
 
 def registrarCliente(sede: Sede ):
-    SringStep = sede
+    SpringStep = sede
 
     print("\n=====  REGISTRO CLIENTE ====\n")
     nombre = None
@@ -19,17 +18,17 @@ def registrarCliente(sede: Sede ):
     direccion = None
 
     while True:
-         cedula = input("Cedula: ")
+        cedula = input("Cedula: ").strip()
 
         # VALIDAR FORMATO CÉDULA      
-         if  not Persona.validar_cedula(cedula):
+        if  not Persona.validar_cedula(cedula):
             print("CC inválida: debe contener solo dígitos y tener entre 6 y 10 caracteres.\n")
             continue
          
-         else: break
+        else: 
+            cedula = int(cedula)
+            break
          
-    cedula = int(cedula)
-
     # VALIDAR SI EL CLIENTE SE ENCUENTRA REGISTRADO
     if SpringStep.verificar_cedula_existente(cedula):
         print("No se puede continuar con el registro, debido a que el cliente ya se encuentra en el sistema.\n")
@@ -46,13 +45,15 @@ def registrarCliente(sede: Sede ):
             else: break
 
         while True:
-            celular = input("Celular: ")
+            celular = input("Celular: ").strip()
 
             # VALIDAR FORMATO DE CELULAR
             if not Cliente.validar_celular(celular):
                 print("Numero celular inválido, intente de nuevo.\n")
 
-            else: break
+            else: 
+                celular = int(celular)
+                break
 
         while True:
             correo = input("Correo (opcional): ")
@@ -64,15 +65,19 @@ def registrarCliente(sede: Sede ):
             else: break
 
         while True:
-            direccion = input("Dirección (opcional): " \
-            "): ")
+            direccion = input("Dirección (opcional): ")
 
             #VALIDAR FORMATO
             if not Cliente.validar_direccion(direccion):
                 print("Dirección inválida: contiene caracteres no permitidos, intente de nuevo.")
 
-            else:
-                break
+            else: break
+
+        # CREAR NUEVO CLIENTE
+
+        nuevoCliente = Cliente(cedula, nombre, celular, direccion, correo)
+        SpringStep.registrarCliente(nuevoCliente)
 
 # PRUEBAS
+SpringStep = Sede()
 registrarCliente(SpringStep)
