@@ -1,7 +1,6 @@
 from datetime import datetime
 from gestorAplicacion.Administracion.compra import Compra
 from gestorAplicacion.Administracion.calzado import Calzado
-from gestorAplicacion.Administracion.sede import Sede
 
 class Devolucion:
     ESTADOS_NO_ADMITIDOS = ["usado", "dañado", "defectuoso", "deteriorado"]
