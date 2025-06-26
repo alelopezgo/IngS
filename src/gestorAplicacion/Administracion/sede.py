@@ -2,6 +2,7 @@ from gestorAplicacion.Personal.cliente import Cliente
 from gestorAplicacion.Personal.cajero import Cajero
 from gestorAplicacion.Personal.asesor import Asesor
 from gestorAplicacion.Administracion.compra import Compra
+from gestorAplicacion.Administracion.calificacionProducto import Calificacion
 from gestorAplicacion.Administracion.Devolucion import Devolucion
 from gestorAplicacion.Administracion.calzado import Calzado
 from typing import List
@@ -15,7 +16,7 @@ class Sede:
         self._devoluciones: List[Devolucion] = []
         self._productos: List[Calzado] = []
         self._cedulasClientes = set() #PARA HACER LAS BÚSQUEDAS EN O(1)
-
+        self.calificaciones: List[Calificacion] = []
 
     def setCedulas(self):
         return self._cedulasClientes
@@ -44,3 +45,22 @@ class Sede:
 
     def get_productos(self) -> List[Calzado]:
         return self._productos   
+       
+    def registrar_calificacion(self, calificacion: Calificacion):
+    # Buscar si ya existe una calificación para el mismo cliente y producto
+        for c in self.calificaciones:
+            if (c.get_cliente() == calificacion.get_cliente() and
+                c.get_producto() == calificacion.get_producto()):
+                # Si existe, actualizar los valores
+                c.set_valor(calificacion.get_valor())
+                c.set_comentario(calificacion.get_comentario())
+                c.set_fecha(calificacion.get_fecha())
+                return
+        # Si no existe, agregar la nueva calificación
+        self.calificaciones.append(calificacion)
+
+    def buscar_cliente_por_cedula(self, cedula: int):
+        for cliente in self._clientes:
+            if cliente.get_cedula() == cedula:
+                return cliente
+        return None
