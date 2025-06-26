@@ -1,4 +1,6 @@
 from gestorAplicacion.Administracion.modeloCalzado import ModeloCalzado
+
+
 class Calzado:
     def __init__(self, modelo: ModeloCalzado, talla: int, color: str, precio: int):
         self._modelo = modelo
@@ -29,5 +31,3 @@ class Calzado:
 
     def set_precio(self, precio: int):
         self._precio = precio
-
- 
