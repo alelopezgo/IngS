@@ -1,12 +1,15 @@
 from gestorAplicacion.Personal.persona import Persona
+
+from typing import List
 import re
 
 class Cliente(Persona):
-    def __init__(self, cedula: int, nombre: str, telefono: int, direccion: str, correo: str):
+    def __init__(self, cedula: int, nombre: str, telefono: int, direccion: str, correo: str, compras_previas):
         super().__init__(cedula, nombre, "Cliente")
         self._telefono = telefono
         self._direccion = direccion
         self._correo = correo
+        self._compras_previas = compras_previas
 
     
     @classmethod
@@ -67,5 +70,9 @@ class Cliente(Persona):
     def set_correo(self, correo: str):
         self._correo = correo
 
+    def get_compras_previas(self):
+        return self._compras_previas
     
-
+    def set_compras_previas(self, compras_previas):
+        self._compras_previas = compras_previas
+    

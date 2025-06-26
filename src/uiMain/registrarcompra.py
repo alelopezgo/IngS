@@ -86,7 +86,7 @@ def registrarCompra(sede: Sede, cajero: Cajero):
         return
 
     # 6. DESCUENTO AUTOMÁTICO
-    compra.aplicar_descuento_por_historial(sede)
+    compra.aplicar_descuento_por_historial(cliente.get_compras_previas())
 
     # 7. CALCULAR TOTALES
     compra.calcular_total()
@@ -122,6 +122,7 @@ def registrarCompra(sede: Sede, cajero: Cajero):
 
     # 9. REGISTRAR COMPRA EN LA SEDE
     sede.registrar_compra(compra)
+    cliente.get_compras_previas().append(compra)
 
     # 10. MOSTRAR FACTURA
     print("\n===== FACTURA FINAL =====")

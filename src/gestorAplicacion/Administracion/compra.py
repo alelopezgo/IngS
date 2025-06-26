@@ -2,6 +2,7 @@ from datetime import datetime
 from gestorAplicacion.Personal.cliente import Cliente
 from gestorAplicacion.Personal.cajero import Cajero
 from gestorAplicacion.Administracion.calzado import Calzado
+
 from typing import List
 
 
@@ -72,11 +73,15 @@ class Compra:
         self._subtotal = sum([p.get_precio() for p in self._productos])
 
     def aplicar_descuento_por_historial(self, compras_previas: List['Compra']):
-        if compras_previas:
-            ultima_compra = compras_previas[-1]
-            self._descuento = ultima_compra.get_total() * 0.08
-        else:
+        if not compras_previas:
             self._descuento = 0.0
+        else:
+            ultima_compra = compras_previas[-1]
+            if ultima_compra is None:
+                self._descuento = 0.0
+            else:
+                self._descuento = ultima_compra.get_total() * 0.08
+
 
     def calcular_total(self):
         self._total = self._subtotal - self._descuento
@@ -95,7 +100,7 @@ class Compra:
         factura += f"Medio de pago: {self._medio_pago.capitalize()}\n"
         factura += f"\nProductos:\n"
         for p in self._productos:
-            factura += f" - {p.get_tipo()} | Talla: {p.get_talla()} | Color: {p.get_color()} | Precio: ${p.get_precio()}\n"
+            factura += f" - {p.get_modelo()} | Talla: {p.get_talla()} | Color: {p.get_color()} | Precio: ${p.get_precio()}\n"
         factura += f"\nSubtotal: ${self._subtotal:.2f}\n"
         factura += f"Descuento aplicado: ${self._descuento:.2f}\n"
         factura += f"Total a pagar: ${self._total:.2f}\n"
