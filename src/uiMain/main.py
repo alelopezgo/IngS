@@ -3,6 +3,7 @@ from gestorAplicacion.Administracion.sede import Sede
 from registrarcompra import registrarCompra
 from registrardevolucion import registrar_devolucion
 from registrarCalificacion import registrarCalificacion
+from registrarCalificacionServicio import registrarCalificacionServicio
 from gestorAplicacion.Personal.cajero import Cajero
 from gestorAplicacion.Personal.cliente import Cliente
 from gestorAplicacion.Administracion.calzado import Calzado
@@ -12,9 +13,8 @@ from gestorAplicacion.Administracion.Devolucion import Devolucion
 
 SpringStep = Sede()
 
-
 # Crear cliente y cajero
-cliente = Cliente(nombre="Alejandro Lopez",cedula=1001506186, telefono=3207078279, direccion="", correo="", compras_previas=[])
+cliente = Cliente(nombre="Alejandro Lopez", cedula=1001506186, telefono=3207078279, direccion="", correo="", compras_previas=[])
 cajero = Cajero(cedula=123456789, nombre="Alejandro Lopez", rol="Cajero", id=1)
 
 # Registrar cliente en la sede
@@ -56,7 +56,7 @@ def menu_cliente():
         if opcion == "1":
             registrarCalificacion(SpringStep)
         elif opcion == "2":
-            print("Iniciando proceso de compra...")
+            registrarCalificacionServicio(SpringStep)
         elif opcion == "0":
             print("Saliendo del menú cliente.")
             break
