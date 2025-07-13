@@ -6,6 +6,7 @@ from gestorAplicacion.Administracion.calificacionProducto import Calificacion
 from gestorAplicacion.Administracion.Devolucion import Devolucion
 from gestorAplicacion.Administracion.calzado import Calzado
 from typing import List
+from datetime import datetime
 
 class Sede:
     def __init__(self):
@@ -64,3 +65,26 @@ class Sede:
             if cliente.get_cedula() == cedula:
                 return cliente
         return None
+
+    def consultar_calificacion(self, cedula: int = None, nombreProducto: str = None, codigo: int = None, fechaInicial: str = None, fechaFinal: str = None):
+        resultados = self.calificaciones
+
+        if cedula:
+            print("Filtrando por cédula:", cedula)
+            resultados = [c for c in resultados if c.get_cliente().get_cedula() == int(cedula)]
+        if nombreProducto:
+            print("Filtrando por nombre de producto:", nombreProducto)
+            resultados = [c for c in resultados if c.get_producto().get_modelo().get_nombre().lower() == nombreProducto.lower()]
+        if codigo:
+            print("Filtrando por código:", codigo)
+            resultados = [c for c in resultados if c.get_producto().get_modelo().get_codigo() == int(codigo)]
+        if fechaInicial:
+            print("Filtrando por fecha inicial:", fechaInicial)
+            fecha_ini = datetime.strptime(fechaInicial, "%Y-%m-%d")
+            resultados = [c for c in resultados if c.get_fecha() >= fecha_ini]
+        if fechaFinal:
+            print("Filtrando por fecha final:", fechaFinal)
+            fecha_fin = datetime.strptime(fechaFinal, "%Y-%m-%d")
+            resultados = [c for c in resultados if c.get_fecha() <= fecha_fin]
+
+        return resultados

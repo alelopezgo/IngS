@@ -1,14 +1,15 @@
 import sys
 import os
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from gestorAplicacion.Administracion.calificacionProducto import Calificacion
 from gestorAplicacion.Administracion.sede import Sede
 from gestorAplicacion.Personal.cajero import Cajero
-from gestorAplicacion.Personal.persona import Persona
 from gestorAplicacion.Personal.cliente import Cliente
 from gestorAplicacion.Administracion.compra import Compra
 from gestorAplicacion.Administracion.calzado import Calzado
 from gestorAplicacion.Administracion.modeloCalzado import ModeloCalzado
+from uiMain.consultarCalificacion import consultarCalificacion
 
 def registrarCalificacion(sede: Sede ):
 
@@ -33,11 +34,11 @@ def registrarCalificacion(sede: Sede ):
     if not comprasCliente or len(comprasCliente) == 0:
         print("El cliente no tiene compras registradas. No se puede registrar calificación.")
         return
-    codigoProducto = input("Ingrese el código del producto: ")
-    producto = None
+    nombreProducto = input("Ingrese el nombre del producto: ")
+    
     for compra in comprasCliente:
         for prod in compra.get_productos():
-            if prod.get_modelo().get_codigo() == int(codigoProducto):
+            if prod.get_modelo().get_nombre().lower() == nombreProducto.lower():
                 producto = prod
                 break
         if producto:
@@ -58,31 +59,31 @@ def registrarCalificacion(sede: Sede ):
     print("Calificación registrada exitosamente.")
     print(f"Cliente: {cliente.get_nombre()}, Producto: {producto.get_modelo().get_nombre()}, Valor: {calificacion.get_valor()}, Comentario: {calificacion.get_comentario()}")
     print(f"Fecha: {calificacion.get_fecha()}")
-    
+
 # # Ejemplo de uso
 # # Crear instancia de Sede
 # sede = Sede()
 
 # # Crear modelos y productos de ejemplo
 # modelo1 = ModeloCalzado(1, "zapato X", "adidas")
-# modelo2 = ModeloCalzado(2, "zapato Y", "nike")
+# modelo2 = ModeloCalzado(2, "zapato X", "adidas")
 # producto1 = Calzado(modelo1,9,"blanco",100000)
 # producto2 = Calzado(modelo2,10,"negro",150000)
 
 # # Crear clientes de ejemplo
 #  # Crear un cliente
 # cliente1 = Cliente(
-#         cedula=123456789,
+#         cedula=123456,
 #         nombre="Juan Perez",
-#         rol="Cliente",
+        
 #         telefono=3123456789,
 #         direccion="Calle 123 #45-67",
 #         correo="juan.perez@gmail.com"
 #     )
 # cliente2 = Cliente(
-#         cedula=187654389,
+#         cedula=654321,
 #         nombre="Juana Perez",
-#         rol="Cliente",
+        
 #         telefono=2123456789,
 #         direccion="Calle 123 #45-67",
 #         correo="juana.perez@gmail.com"
@@ -108,3 +109,5 @@ def registrarCalificacion(sede: Sede ):
 # sede.registrar_compra(compra1)
 # sede.registrar_compra(compra2)
 # registrarCalificacion(sede)
+# registrarCalificacion(sede)
+# consultarCalificacion(sede)
